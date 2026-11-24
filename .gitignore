@@ -1,0 +1,65 @@
+# ======================
+# Stow 自身生成、本地临时文件
+# ======================
+# stow 生成的备份（stow --adopt / 冲突时的备份）
+*.bak
+*.orig
+
+# stow 临时文件
+.stow-local-*
+
+# ======================
+# Shell / zsh
+# ======================
+.zsh_history
+*.zwc
+.zwc
+zcompdump*
+*.zsh-swp
+
+# ======================
+# Neovim
+# ======================
+# nvim 缓存、状态、插件（插件交给 lazy 管理，不进 dotfiles）
+.local/share/nvim/
+.local/state/nvim/
+.local/cache/nvim/
+
+# nvim 会话、shada、临时文件
+*.shada
+*.swp
+*.swo
+*~
+
+# ======================
+# Tmux
+# ======================
+# TPM 插件目录！重要：插件不提交进 dotfiles
+hyh/.config/tmux/plugins/
+
+# tmux 会话保存、临时
+tmux-resurrect/
+tmux-continuum/
+
+# ======================
+# Starship / 其他工具缓存
+# ======================
+.cache/
+.local/state/
+
+# ======================
+# 系统、编辑器临时文件
+# ======================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.tmp
+*.log
+
+# ======================
+# 私有敏感配置（按需放开）
+# ======================
+.env
+.private.*
+*secret*
