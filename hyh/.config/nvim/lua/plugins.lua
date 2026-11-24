@@ -8,6 +8,7 @@ vim.pack.add {
   'https://github.com/nvim-telescope/telescope.nvim',
   'https://github.com/nvim-treesitter/nvim-treesitter',
   'https://github.com/stevearc/oil.nvim',
+  'https://github.com/christoomey/vim-tmux-navigator',
 }
 
 -- Treesitter. Neovim only bundles parsers for c, lua, markdown, vim, vimdoc and
@@ -83,3 +84,14 @@ vim.keymap.set('n', '<leader>sm', function()
   builtin.man_pages(opts)
 end, { desc = '[S]earch [M]an pages' })
 
+-- ========== vim-tmux-navigator keymaps ==========
+vim.keymap.set('n', '<C-h>', '<cmd>TmuxNavigateLeft<CR>',  { desc = 'Tmux navigate left',  silent = true })
+vim.keymap.set('n', '<C-j>', '<cmd>TmuxNavigateDown<CR>',  { desc = 'Tmux navigate down',  silent = true })
+vim.keymap.set('n', '<C-k>', '<cmd>TmuxNavigateUp<CR>',    { desc = 'Tmux navigate up',    silent = true })
+vim.keymap.set('n', '<C-l>', '<cmd>TmuxNavigateRight<CR>', { desc = 'Tmux navigate right', silent = true })
+vim.keymap.set('n', '<C-\\>', '<cmd>TmuxNavigatePrevious<CR>', { desc = 'Tmux navigate previous', silent = true })
+-- terminal
+vim.keymap.set('t', '<C-h>', '<cmd>TmuxNavigateLeft<CR>',  { desc = 'Tmux navigate left',  silent = true })
+vim.keymap.set('t', '<C-j>', '<cmd>TmuxNavigateDown<CR>',  { desc = 'Tmux navigate down',  silent = true })
+vim.keymap.set('t', '<C-k>', '<cmd>TmuxNavigateUp<CR>',    { desc = 'Tmux navigate up',    silent = true })
+vim.keymap.set('t', '<C-l>', '<cmd>TmuxNavigateRight<CR>', { desc = 'Tmux navigate right', silent = true })
