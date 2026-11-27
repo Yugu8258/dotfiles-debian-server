@@ -1,4 +1,4 @@
--- UI appearance, theme overrides, indent guides, column guide, and rainbow delimiters
+-- UI appearance, theme overrides, indent guides, column guide, rainbow delimiters, and statusline
 
 -- Colorscheme. `ayu mirage`
 require('ayu').setup {
@@ -120,5 +120,107 @@ vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
         },
       },
     }
+  end,
+})
+
+-- Statusline setup. See `:help lualine`
+local function setup_lualine()
+  local ok_icons, devicons = pcall(require, 'nvim-web-devicons')
+  if ok_icons then
+    devicons.setup()
+  end
+
+  local ok_lualine, lualine = pcall(require, 'lualine')
+  if not ok_lualine then
+    return
+  end
+
+  -- Detect OS icon
+  local os_icon = ''
+  local sys = vim.uv.os_uname().sysname
+
+  if sys == 'Darwin' then
+    os_icon = ''
+  elseif sys == 'Windows_NT' then
+    os_icon = ''
+  else
+    local ok_rel, content = pcall(vim.fn.readfile, '/etc/os-release')
+    if ok_rel then
+      local release = table.concat(content)
+      if release:find('ID=ubuntu') then
+        os_icon = ''
+      elseif release:find('ID=arch') then
+        os_icon = ''
+      elseif release:find('ID=kali') then
+        os_icon = ''
+      end
+    end
+  end
+
+  -- Transparent rose palette theme
+  local rose_theme = {
+    normal = {
+      a = { fg = '#e0def4', bg = 'none', gui = 'bold' },
+      b = { fg = '#9ccfd8', bg = 'none' },
+      c = { fg = '#6e6a86', bg = 'none' },
+      x = { fg = '#6e6a86', bg = 'none' },
+      y = { fg = '#ebbcba', bg = 'none' },
+      z = { fg = '#c4a7e7', bg = 'none', gui = 'bold' },
+    },
+    insert = { a = { fg = '#9ccfd8', bg = 'none', gui = 'bold' } },
+    visual = { a = { fg = '#c4a7e7', bg = 'none', gui = 'bold' } },
+    replace = { a = { fg = '#eb6f92', bg = 'none', gui = 'bold' } },
+    command = { a = { fg = '#f6c177', bg = 'none', gui = 'bold' } },
+    inactive = {
+      a = { fg = '#6e6a86', bg = 'none' },
+      b = { fg = '#6e6a86', bg = 'none' },
+      c = { fg = '#6e6a86', bg = 'none' },
+    },
+  }
+
+  local function apply_transparent_statusline()
+    vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = 'none' })
+  end
+
+  apply_transparent_statusline()
+
+  local lualine_group = vim.api.nvim_create_augroup('user-lualine', { clear = true })
+  vim.api.nvim_create_autocmd('ColorScheme', {
+    desc = 'Re-apply transparent statusline highlights after colorscheme changes',
+    group = lualine_group,
+    callback = apply_transparent_statusline,
+  })
+
+  lualine.setup {
+    options = {
+      theme = rose_theme,
+      component_separators = { left = '', right = '' },
+      section_separators = { left = '', right = '' },
+      globalstatus = true,
+      disabled_filetypes = {},
+    },
+    sections = {
+      lualine_a = { 'mode' },
+      lualine_b = { 'branch', 'diff', 'diagnostics' },
+      lualine_c = { 'filename' },
+      lualine_x = { 'encoding', 'fileformat', 'filetype' },
+      lualine_y = {
+        { os_icon, color = { fg = '#ebbcba' } },
+        'progress',
+      },
+      lualine_z = { 'location' },
+    },
+    extensions = { 'nvim-tree', 'toggleterm' },
+  }
+end
+
+local lualine_defer_group = vim.api.nvim_create_augroup('user-lualine-defer', { clear = true })
+vim.api.nvim_create_autocmd('VimEnter', {
+  desc = 'Load lualine after startup completes',
+  group = lualine_defer_group,
+  once = true,
+  callback = function()
+    vim.schedule(setup_lualine)
   end,
 })
