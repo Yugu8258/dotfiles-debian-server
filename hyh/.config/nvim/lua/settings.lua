@@ -12,6 +12,7 @@ vim.o.guicursor = "a:block"
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = true
+vim.opt.fillchars:append({ eob = " " })
 
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
