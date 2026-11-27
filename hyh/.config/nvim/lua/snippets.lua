@@ -28,48 +28,48 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.]]
 
 local snippets = {
-  c = {
-    main = 'int main(void) {\n\t$0\n\n\treturn 0;\n}',
-    ['for'] = 'for (size_t $1 = 0; $1 < $2; ++$1) {\n\t$0\n}',
-    -- Uppercased file stem, with anything non-alphanumeric turned into an
-    -- underscore: plt.h -> PLT, my-plt.h -> MY_PLT
-    guard = function()
-      local stem = vim.fn.expand('%:t:r'):gsub('[^%w]', '_'):upper()
-      return ('#ifndef _%s_H\n#define _%s_H\n\n$0\n\n#endif // _%s_H'):format(
-        stem,
-        stem,
-        stem
-      )
-    end,
-  },
-  python = {
-    main = "def main() -> int:\n    $0\n    return 0\nif __name__ == '__main__': exit(main())",
-    class = 'class $1($2):\n    def __init__(self, $3):\n        self.$3 = $3',
-    dataclass = '@dataclass\nclass $1:\n    $0',
-    np = 'import numpy as np',
-    pd = 'import pandas as pd',
-  },
-  markdown = {
-    youtube = '[![$1](https://img.youtube.com/vi/$2/mqdefault.jpg)](https://youtu.be/$2)',
-  },
-  text = {
-    mit = function()
-      return mit:format(os.date '%Y')
-    end,
-  },
+    c = {
+        main = 'int main(void) {\n\t$0\n\n\treturn 0;\n}',
+        ['for'] = 'for (size_t $1 = 0; $1 < $2; ++$1) {\n\t$0\n}',
+        -- Uppercased file stem, with anything non-alphanumeric turned into an
+        -- underscore: plt.h -> PLT, my-plt.h -> MY_PLT
+        guard = function()
+            local stem = vim.fn.expand('%:t:r'):gsub('[^%w]', '_'):upper()
+            return ('#ifndef _%s_H\n#define _%s_H\n\n$0\n\n#endif // _%s_H'):format(
+                stem,
+                stem,
+                stem
+            )
+        end,
+    },
+    python = {
+        main = "def main() -> int:\n    $0\n    return 0\nif __name__ == '__main__': exit(main())",
+        class = 'class $1($2):\n    def __init__(self, $3):\n        self.$3 = $3',
+        dataclass = '@dataclass\nclass $1:\n    $0',
+        np = 'import numpy as np',
+        pd = 'import pandas as pd',
+    },
+    markdown = {
+        youtube = '[![$1](https://img.youtube.com/vi/$2/mqdefault.jpg)](https://youtu.be/$2)',
+    },
+    text = {
+        mit = function()
+            return mit:format(os.date '%Y')
+        end,
+    },
 }
 
 vim.keymap.set('i', '<C-j>', function()
-  local col = vim.fn.col '.' - 1
-  local word = vim.api.nvim_get_current_line():sub(1, col):match '[%w_]+$'
-  local body = word and (snippets[vim.bo.filetype] or {})[word]
-  if not body then
-    return
-  end
-  if type(body) == 'function' then
-    body = body()
-  end
-  local row = vim.fn.line '.' - 1
-  vim.api.nvim_buf_set_text(0, row, col - #word, row, col, {})
-  vim.snippet.expand(body)
+    local col = vim.fn.col '.' - 1
+    local word = vim.api.nvim_get_current_line():sub(1, col):match '[%w_]+$'
+    local body = word and (snippets[vim.bo.filetype] or {})[word]
+    if not body then
+        return
+    end
+    if type(body) == 'function' then
+        body = body()
+    end
+    local row = vim.fn.line '.' - 1
+    vim.api.nvim_buf_set_text(0, row, col - #word, row, col, {})
+    vim.snippet.expand(body)
 end, { desc = 'Expand snippet' })

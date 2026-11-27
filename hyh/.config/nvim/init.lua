@@ -7,9 +7,9 @@ require 'edit'
 require 'snippets'
 
 vim.lsp.enable({
-  'clangd',
-  'lua_ls',
-  'ruff',
-  'rust_analyzer',
-  'ty',
+    'clangd',
+    'lua_ls',
+    'ruff',
+    'rust_analyzer',
+    'ty',
 })
