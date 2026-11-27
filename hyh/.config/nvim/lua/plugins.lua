@@ -14,6 +14,8 @@ vim.pack.add {
   'https://github.com/lukas-reineke/virt-column.nvim',
   'https://github.com/rmagatti/alternate-toggler',
   'https://github.com/HiPhish/rainbow-delimiters.nvim',
+  'https://github.com/nvim-tree/nvim-web-devicons',
+  'https://github.com/nvim-lualine/lualine.nvim',
 }
 
 -- Set rainbow delimiter highlight groups before plugin initialization

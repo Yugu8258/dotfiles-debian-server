@@ -12,6 +12,10 @@
       "rev": "1e9d0fbfe7ff848bc402d2c2e2854fb4eff2dce7",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "lualine.nvim": {
+      "rev": "221ce6b2d999187044529f49da6554a92f740a96",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
+    },
     "neovim-ayu": {
       "rev": "e5a9f0fa2918d6b5f57c21b3ac014314ee5e41c8",
       "src": "https://github.com/Shatur/neovim-ayu"
@@ -19,6 +23,10 @@
     "nvim-treesitter": {
       "rev": "19bdfc04f40ed2ccb3340591d125f759b0406875",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-web-devicons": {
+      "rev": "0dc0cfb0c6858041174a53c7aa4adaf65e994b3c",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
       "rev": "d3733d933833a0e59b813ecec99341527adf0c28",
