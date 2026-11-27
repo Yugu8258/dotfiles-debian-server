@@ -2,7 +2,7 @@
 
 -- Toggleable terminal. See `:help toggleterm`
 require('toggleterm').setup {
-    open_mapping = [[<D-j>]],
+    open_mapping = [[<M-j>]],
     insert_mappings = true,
     terminal_mappings = true,
     direction = 'float',
